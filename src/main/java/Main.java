@@ -27,7 +27,7 @@ public class Main {
             String[] shellInput = input.split(" ");
             String[] restOfCommand = Arrays.copyOfRange(shellInput, 1, shellInput.length);
 
-            String command = shellInput[0];
+            String command = shellInput[0].toLowerCase();
 
             if (command.equalsIgnoreCase("echo")) {
                 System.out.println(String.join(" ", restOfCommand));
