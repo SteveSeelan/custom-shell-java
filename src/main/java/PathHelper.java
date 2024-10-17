@@ -10,8 +10,7 @@ public class PathHelper {
         Map<String, String> execToPath = new HashMap<>();
 
         if (pathArg != null) {
-            String[] pathDirs = pathArg.split("PATH=");
-            String[] paths = pathDirs[1].split(":");
+            String[] paths = pathArg.split(":");
 
             for (String path : paths) {
                 File dir = new File(path);
@@ -20,7 +19,7 @@ public class PathHelper {
                 if (directoryListing != null) {
                     for (File file : directoryListing) {
                         if (file.isFile() && file.canExecute()) {
-//                            System.out.println("Adding file(key) and path(val): " + file.getName() + " " + file.getAbsolutePath());
+                            System.out.println("Adding file(key) and path(val): " + file.getName() + " " + file.getAbsolutePath());
                             if (!execToPath.containsKey(file.getName())) {
                                 execToPath.put(file.getName(), file.getAbsolutePath());
                             }

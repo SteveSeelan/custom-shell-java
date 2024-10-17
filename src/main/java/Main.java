@@ -4,15 +4,11 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws Exception {
         // Uncomment this block to pass the first stage
-        String pathArg = null;
-        if (args.length > 0) {
-            pathArg = args[0];
-        }
-        run(pathArg);
+        run();
     }
 
-    public static void run(String pathArg) {
-        Optional<Map<String, String>> execToPath = PathHelper.extractPath(pathArg);
+    public static void run() {
+        Optional<Map<String, String>> execToPath = PathHelper.extractPath(System.getenv("PATH"));
         Map<String, String> responseFromCommand = new HashMap<>();
         responseFromCommand.put("echo", " is a shell builtin");
         responseFromCommand.put("type", " is a shell builtin");
