@@ -14,11 +14,10 @@ public class Main {
     public static void run() throws IOException {
         PathHelper pathHelper = new PathHelper();
         Map<String, String> commandToPath = pathHelper.getPathToLocation();
-        Map<String, String> responseFromCommand = new HashMap<>();
-        responseFromCommand.put("echo", " is a shell builtin");
-        responseFromCommand.put("type", " is a shell builtin");
-        responseFromCommand.put("exit", " is a shell builtin");
-        responseFromCommand.put("cat", " is /bin/cat");
+        pathHelper.addShellBuiltins("echo");
+        pathHelper.addShellBuiltins("type");
+        pathHelper.addShellBuiltins("exit");
+        pathHelper.addShellBuiltins("pwd");
 
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -38,14 +37,16 @@ public class Main {
                     continue;
                 }
                 String type = restOfCommand[0];
-
-                if (responseFromCommand.containsKey(type)) {
-                    System.out.println(TextColor.RED + type + TextColor.RESET + responseFromCommand.get(type));
+                HashSet<String> shellBuiltins = pathHelper.getShellBuiltins();
+                if (shellBuiltins.contains(type)) {
+                    System.out.println(TextColor.RED + type + TextColor.RESET + " is a shell builtin");
                 } else if (commandToPath != null && commandToPath.containsKey(type)) {
                     System.out.println(type + " is " + commandToPath.get(type));
                 } else {
                     System.out.println(type + ": not found");
                 }
+            } else if (command.equalsIgnoreCase("pwd")) {
+                System.out.println(System.getProperty("user.dir"));
             } else if (input.equalsIgnoreCase("exit 0")) {
                 break;
             } else if (commandToPath != null && commandToPath.containsKey(command)) {
@@ -54,7 +55,6 @@ public class Main {
                 } catch (IOException ioEx) {
                     throw new IOException(ioEx);
                 }
-
             } else {
                 System.out.println(input + ": command not found");
             }

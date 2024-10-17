@@ -7,10 +7,12 @@ import java.util.*;
 public class PathHelper {
     private static Map<String, String> pathToLocation;
     private static final String path = System.getenv("PATH");
+    private final HashSet<String> shellBuiltins;
 
     public PathHelper() {
+        shellBuiltins = new HashSet<>();
         pathToLocation = extractPath().isPresent() ? extractPath().get() : null;
-    };
+    }
 
     public void runExec(String pathCommand, List<String> args) throws IOException {
         if (pathToLocation != null) {
@@ -75,5 +77,13 @@ public class PathHelper {
 
     public Map<String, String> getPathToLocation() {
         return pathToLocation;
+    }
+
+    public void addShellBuiltins(String shellBuiltin) {
+        this.shellBuiltins.add(shellBuiltin);
+    }
+
+    public HashSet<String> getShellBuiltins() {
+        return shellBuiltins;
     }
 }
