@@ -19,7 +19,7 @@ public class PathHelper {
                 if (directoryListing != null) {
                     for (File file : directoryListing) {
                         if (file.isFile() && file.canExecute()) {
-                            System.out.println("Adding file(key) and path(val): " + file.getName() + " " + file.getAbsolutePath());
+//                            System.out.println("Adding file(key) and path(val): " + file.getName() + " " + file.getAbsolutePath());
                             if (!execToPath.containsKey(file.getName())) {
                                 execToPath.put(file.getName(), file.getAbsolutePath());
                             }
